@@ -324,7 +324,7 @@ function $$operating_expense(columns, header_) {
         let cost_factor_ = parseFloat(product_configuration_[loan_types_[$type][1]][1]);
         let principal_cap = Math.min(parseFloat(product_configuration_[loan_types_[$type][1]][2]), $principal);
         let efficiency_ratio_ = parseFloat(document.getElementById('institution_efficiency_').innerHTML);
-        let origination_expense = cost_factor_ * principal_cap * efficiency_ratio_ * .01 / Math.max($$current_life_in_years(columns, header_), 5);
+        let origination_expense = cost_factor_ * .01 * principal_cap * efficiency_ratio_ / Math.max($$current_life_in_years(columns, header_), 5);
         $$screen_log("origination expense", $$USDollar.format(origination_expense));
         let servicing_expense = principal_cap * parseFloat(document.getElementById('servicing_factor_').innerHTML) / Math.max($$current_life_in_years(columns, header_), 5);
         $$screen_log("servicing expense", $$USDollar.format(servicing_expense));
