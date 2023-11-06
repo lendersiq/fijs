@@ -69,5 +69,8 @@ function start_upload(e) {
     }
     reader.readAsText(file);
     consoleModal_.hide()
+    if (document.getElementById('file-errors').innerHTML === '' && document.getElementById('screen-console').innerHTML === '') {
+        document.getElementById('fijs-console').style.display = "none"
+    }
 }
 document.getElementById('file-input').addEventListener('change', start_upload, false);
