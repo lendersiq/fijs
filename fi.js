@@ -44,7 +44,7 @@ function $$encryptString(str) {
 function $$screen_log(label, value) {
     let id_filter = document.getElementById('id-filter').value.trim();
     if (id_filter != null && id_filter != "") {
-        document.getElementById('screen-console').innerText += label + " : " + value + "\n";   
+        document.getElementById('screen-console').textContent += label + " : " + value + "\n";   
     }
 }
 
