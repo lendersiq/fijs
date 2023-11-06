@@ -255,6 +255,36 @@ function $$cost_of_funds(columns, header_) {
     }
 }
 
+function $$target_funding_cost(columns, header_) {
+    if (typeof document.getElementById('margin_target_') == 'undefined' || document.getElementById('margin_target_') == null) {
+        console.log('error: no margin target defined');
+    } else {
+        let $margin_target = parseFloat(document.getElementById('margin_target_').innerHTML.trim());
+        let $principal_temp = parseFloat(columns[header_.indexOf('principal')]);
+        let $monthly_rate = parseFloat(columns[header_.indexOf('rate')]) / 12;
+        let $payment = parseFloat(columns[header_.indexOf('payment')]);
+        if ($payment < $principal_temp * $monthly_rate) {
+            $payment = $$estimate_payment(columns, header_);
+        }
+        let $months = Math.max(Math.min($$remaining_life_in_months(columns, header_), 360), 1);
+        let principal_sum = 0.0;
+        let paydown = 0.0;
+        let month = 1;
+        let COF_sum = 0.0;
+        while (month <= $months && $principal_temp > 0) {
+            paydown = $payment - ($principal_temp * $monthly_rate);
+            COF_sum += paydown * $margin_target * month;
+            $principal_temp -= paydown
+            month++;
+        }    
+        let cost_of_funds = COF_sum / $months;
+        $$screen_log("cost of funds", $$USDollar.format(cost_of_funds)); 
+        let line_cost_of_funds = parseFloat(parseFloat(columns[header_.indexOf('principal')]) / 2 * $margin_target);
+        $$screen_log("line cost of funds", $$USDollar.format(line_cost_of_funds)); 
+        return cost_of_funds;
+    }
+}
+
 function $$interest_income(columns, header_) {
     let risk_rating_dict_ = JSON.parse(document.getElementById('risk_rating_dict_').innerHTML);
     let $risk_rating = columns[header_.indexOf('risk_rating')].trim();
@@ -353,7 +383,8 @@ function $$loan_profit(columns, header_)  {
     if (typeof interest_income === 'string') return 'error 1: ' + interest_income; 
     let fees = $$loan_line_fees(columns, header_);
     if (typeof fees === 'string') return 'error 2: ' + fees;
-    let cost_of_funds = $$cost_of_funds(columns, header_);
+    //2 Methods let cost_of_funds = $$cost_of_funds(columns, header_);
+    let cost_of_funds = $$target_funding_cost(columns, header_);
     let operating_expense = $$operating_expense(columns, header_);
     if (typeof operating_expense === 'string') return 'error 3: ' + operating_expense;
     let net_income = interest_income + fees - operating_expense - cost_of_funds;
