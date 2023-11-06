@@ -60,7 +60,7 @@ function start_upload(e) {
             $$display_table('product report', 'report_div', ['Type code', 'Product', 'Profit', 'Principal', 'Q'], G_product_table);
         
             //sort branch report by profit
-            $$sort_display_table('branch report', 'report_div', ['Branch', 'Product', 'Profit', 'Principal', 'Q'], G_branch_table, 2, 'des')
+            $$sort_display_table('branch report', 'report_div', ['Branch #', 'Name', 'Profit', 'Principal', 'Q'], G_branch_table, 2, 'des')
             
             //sort ranking report by profit
             G_portfolio_table.sort((a, b) => parseFloat(b[1]) - parseFloat(a[1]));
