@@ -65,12 +65,13 @@ function start_upload(e) {
             //sort ranking report by profit
             G_portfolio_table.sort((a, b) => parseFloat(b[1]) - parseFloat(a[1]));
             $$display_table('ranking report', 'report_div', ['ID', 'Profit', 'Q'], G_portfolio_table, true);
+
+            if (document.getElementById('file-errors').innerText != "" || document.getElementById('screen-console').innerText != "") {
+                document.getElementById('fijs-console').style.display = "block"
+            }
         }
     }
     reader.readAsText(file);
     consoleModal_.hide()
-    if (document.getElementById('file-errors').innerHTML === '' && document.getElementById('screen-console').innerHTML === '') {
-        document.getElementById('fijs-console').style.display = "none"
-    }
 }
 document.getElementById('file-input').addEventListener('change', start_upload, false);
