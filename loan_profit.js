@@ -21,7 +21,7 @@ function start_upload(e) {
         let $file_header = file_content.substring(0, header_end);
         let errors = $$validate_header($file_header);
         if (errors) {
-            document.getElementById('file-errors').textContent += errors + "\n"; 
+            $$error_log('file', errors);
         } else {
             let header_ = <?= json_encode(array_values($container_config['file_field_dict'])) ?>;
             let rows = file_content.split(/\r?\n|\r|\n/g);
@@ -57,7 +57,7 @@ function start_upload(e) {
                         temp_index = G_branch_table.findIndex(function(v,i) {
                             return v[0] === $branch});
                         if (typeof G_branch_table[temp_index] == 'undefined' || G_branch_table[temp_index] == null) {
-                            document.getElementById('file-errors').textContent += "error: branch " + $branch + "missing\n"; 
+                            $$error_log('config', 'branch ' + $branch + 'missing'); 
                         } else {
                             G_branch_table[temp_index][2] += loan_profit;
                             G_branch_table[temp_index][3] += $principal;
