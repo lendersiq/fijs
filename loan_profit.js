@@ -1,5 +1,5 @@
  //globals 
-var G_product_count = <?= json_encode($loan__counts) ?>;
+var G_product_count = <?= json_encode($loan_type_counts) ?>;
 var G_portfolio_table = [];
 var G_product_table = <?= json_encode($product_table) ?>;
 var G_branch_count = <?= json_encode($branch_loan_counts) ?>;
@@ -68,7 +68,7 @@ function start_upload(e) {
             }
             //sort product report by profit 
             G_product_table.sort((a, b) => parseFloat(b[2]) - parseFloat(a[2]));
-            $$display_table('product report', 'report_div', [' code', 'Product', 'Profit', 'Principal', 'Q'], G_product_table);
+            $$display_table('product report', 'report_div', ['Type', 'Product', 'Profit', 'Principal', 'Q'], G_product_table);
         
             //sort branch report by profit
             $$sort_display_table('branch report', 'report_div', ['Branch #', 'Name', 'Profit', 'Principal', 'Q'], G_branch_table, 2, 'des')
