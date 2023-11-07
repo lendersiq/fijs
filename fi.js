@@ -50,7 +50,7 @@ function $$screen_log(label, value) {
 }
 
 function $$error_log(label, _text) {
-    document.getElementById('error-console').textContent += label + " : " + _text + "\n"
+    document.getElementById('error-console').textContent += label + " error: " + _text + "\n"
     document.getElementById('fijs-console').style.display = "block";
 }
 
