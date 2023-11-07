@@ -1,5 +1,5 @@
  //globals 
-var G_product_count = <?= json_encode($loan_type_counts) ?>;
+var G_product_count = <?= json_encode($loan__counts) ?>;
 var G_portfolio_table = [];
 var G_product_table = <?= json_encode($product_table) ?>;
 var G_branch_count = <?= json_encode($branch_loan_counts) ?>;
@@ -21,7 +21,7 @@ function start_upload(e) {
         let $file_header = file_content.substring(0, header_end);
         let errors = $$validate_header($file_header);
         if (errors) {
-            document.getElementById('file-errors').textContent = errors; 
+            document.getElementById('file-errors').textContent += errors + "\n"; 
         } else {
             let header_ = <?= json_encode(array_values($container_config['file_field_dict'])) ?>;
             let rows = file_content.split(/\r?\n|\r|\n/g);
@@ -56,15 +56,19 @@ function start_upload(e) {
                         
                         temp_index = G_branch_table.findIndex(function(v,i) {
                             return v[0] === $branch});
-                        G_branch_table[temp_index][2] += loan_profit;
-                        G_branch_table[temp_index][3] += $principal;
-                        G_branch_table[temp_index][4] += 1;
+                        if (typeof G_branch_table[temp_index] == 'undefined' || G_branch_table[temp_index] == null) {
+                            document.getElementById('file-errors').textContent += "error: branch " + $branch + "missing\n"; 
+                        } else {
+                            G_branch_table[temp_index][2] += loan_profit;
+                            G_branch_table[temp_index][3] += $principal;
+                            G_branch_table[temp_index][4] += 1;
+                        }
                     }
                 }
             }
             //sort product report by profit 
             G_product_table.sort((a, b) => parseFloat(b[2]) - parseFloat(a[2]));
-            $$display_table('product report', 'report_div', ['Type code', 'Product', 'Profit', 'Principal', 'Q'], G_product_table);
+            $$display_table('product report', 'report_div', [' code', 'Product', 'Profit', 'Principal', 'Q'], G_product_table);
         
             //sort branch report by profit
             $$sort_display_table('branch report', 'report_div', ['Branch #', 'Name', 'Profit', 'Principal', 'Q'], G_branch_table, 2, 'des')
