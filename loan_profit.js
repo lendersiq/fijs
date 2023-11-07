@@ -5,6 +5,15 @@ var G_product_table = <?= json_encode($product_table) ?>;
 var G_branch_count = <?= json_encode($branch_loan_counts) ?>;
 var G_branch_table = <?= json_encode($branch_table) ?>;
 
+ function $$monthly_payment(columns, header_) {
+    let $principal = parseFloat(columns[header_.indexOf('principal')]);
+    let $monthly_rate = parseFloat(columns[header_.indexOf('rate')]) / 12;
+    let months = $$term_in_months(columns, header_);
+    let payment = $principal * $monthly_rate * (Math.pow(1 + $monthly_rate, months)) / (Math.pow(1 + $monthly_rate, months) - 1);
+    $$screen_log("calculated payment", $$USDollar.format(payment)); 
+    return payment; 
+}
+
 function start_upload(e) {
     e.preventDefault();
     var file = e.target.files[0];
@@ -57,7 +66,7 @@ function start_upload(e) {
                         temp_index = G_branch_table.findIndex(function(v,i) {
                             return v[0] === $branch});
                         if (typeof G_branch_table[temp_index] == 'undefined' || G_branch_table[temp_index] == null) {
-                            $$error_log('config', 'branch ' + $branch + 'missing'); 
+                            $$error_log('config', 'branch ' + $branch + ' missing'); 
                         } else {
                             G_branch_table[temp_index][2] += loan_profit;
                             G_branch_table[temp_index][3] += $principal;
