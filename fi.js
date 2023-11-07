@@ -190,15 +190,6 @@ function $$catalog_data(columns, header_, id) {
     });
 }
 
-function $$monthly_payment(columns, header_) {
-    let $principal = parseFloat(columns[header_.indexOf('principal')]);
-    let $monthly_rate = parseFloat(columns[header_.indexOf('rate')]) / 12;
-    let months = $$term_in_months(columns, header_);
-    let payment = $principal * $monthly_rate * (Math.pow(1 + $monthly_rate, months)) / (Math.pow(1 + $monthly_rate, months) - 1);
-    $$screen_log("calculated payment", $$USDollar.format(payment)); 
-    return payment; 
-}
-
 function $$estimate_payment(columns, header_) {
     let $principal = parseFloat(columns[header_.indexOf('principal')]);
     let $monthly_rate = parseFloat(columns[header_.indexOf('rate')]) / 12;
