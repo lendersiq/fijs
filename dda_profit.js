@@ -15,9 +15,24 @@ function $$credit_for_funding(columns, header_)  {
         let capital_expense = $capital_target * $fraud_loss
         let $balance = parseFloat(columns[header_.indexOf('balance')])
         let credit_for_funding = $balance * ($margin_target - capital_expense)
-        $$screen_log("credit for funding", $$USDollar.format(credit_for_funding));
+        $$screen_log("credit for funding", $$USDollar.format(credit_for_funding))
         return credit_for_funding
     }
+}
+
+function $$non_interest_income((columns, header_)  {
+    let $service_charge = parseFloat(columns[header_.indexOf('balance')])
+    let $charge_waived = parseFloat(columns[header_.indexOf('charge_waived')])
+    let $other_charge = parseFloat(columns[header_.indexOf('other_charge')])	
+    let $other_waived = parseFloat(columns[header_.indexOf('other_waived')])
+    let $NSF = parseFloat(columns[header_.indexOf('NSFs')])
+    let $NSF_waived = parseFloat(columns[header_.indexOf('NSF_waived')])
+    let $NSF_refund = parseFloat(columns[header_.indexOf('NSF_refund')])
+    let $NSF_fee = parseFloat(document.getElementById('NSF_fee_').innerHTML.trim())
+    let non_interest_income = $service_charge - $charge_waived
+    non_interest_income = $other_charge - $other_waived
+    non_interest_income = $NSF * $NSF_fee - $NSF_refund - $NSF_fee
+    return non_interest_income * 12 //annualize monthly calculations
 }
 
 function $$dda_profit(columns, header_)  {
