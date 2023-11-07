@@ -1,3 +1,10 @@
+ //globals 
+var G_product_count = <?= json_encode($loan_type_counts) ?>;
+var G_portfolio_table = [];
+var G_product_table = <?= json_encode($product_table) ?>;
+var G_branch_count = <?= json_encode($branch_loan_counts) ?>;
+var G_branch_table = <?= json_encode($branch_table) ?>;
+
 function start_upload(e) {
     e.preventDefault();
     var file = e.target.files[0];
@@ -65,10 +72,6 @@ function start_upload(e) {
             //sort ranking report by profit
             G_portfolio_table.sort((a, b) => parseFloat(b[1]) - parseFloat(a[1]));
             $$display_table('ranking report', 'report_div', ['ID', 'Profit', 'Q'], G_portfolio_table, true);
-
-            if (document.getElementById('file-errors').innerText != "" || document.getElementById('screen-console').innerText != "") {
-                document.getElementById('fijs-console').style.display = "block"
-            }
         }
     }
     reader.readAsText(file);
