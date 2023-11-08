@@ -21,7 +21,7 @@ function $$credit_for_funding(columns, header_)  {
 }
 
 function $$non_interest_income(columns, header_)  {
-    let $service_charge = parseFloat(columns[header_.indexOf('balance')])
+    let $service_charge = parseFloat(columns[header_.indexOf('service_charge')])
     let $charge_waived = parseFloat(columns[header_.indexOf('charge_waived')])
     let $other_charge = parseFloat(columns[header_.indexOf('other_charge')])	
     let $other_waived = parseFloat(columns[header_.indexOf('other_waived')])
