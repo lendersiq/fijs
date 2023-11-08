@@ -20,7 +20,7 @@ function $$credit_for_funding(columns, header_)  {
     }
 }
 
-function $$non_interest_income((columns, header_)  {
+function $$non_interest_income(columns, header_)  {
     let $service_charge = parseFloat(columns[header_.indexOf('balance')])
     let $charge_waived = parseFloat(columns[header_.indexOf('charge_waived')])
     let $other_charge = parseFloat(columns[header_.indexOf('other_charge')])	
@@ -35,8 +35,17 @@ function $$non_interest_income((columns, header_)  {
     return non_interest_income * 12 //annualize monthly calculations
 }
 
+function $$activity_cost(columns, header_)  {
+    let $deposits = parseFloat(columns[header_.indexOf('deposits')])
+    let $deposit_unit_cost = parseFloat(document.getElementById('deposit_unit_cost_').innerHTML.trim())
+    return $deposits * $deposit_unit_cost * 12;
+}
+
 function $$dda_profit(columns, header_)  {
-    net_income = 1.0
+    net_income = $$non_interest_income(columns, header_)
+    net_income += $$credit_for_funding(columns, header_)
+    net_income -= parseFloat(columns[header_.indexOf('NSF_refund')]) * 12;
+    net_income -= $$activity_cost(columns, header_)
     return net_income
 }
   
