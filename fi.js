@@ -58,6 +58,7 @@ function $$process_objs(arg) {
 
 function $$process_pipe(arg, columns, header_) {
     key = arg.replace(/[\|\|']+/g,'')
+    console.log(columns[header_.indexOf(key)]
     return parseFloat(columns[header_.indexOf(key)])
 }
 
