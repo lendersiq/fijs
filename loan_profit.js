@@ -234,7 +234,7 @@ function start_upload(e) {
         let CR = file_content.indexOf('\r');
         let LF = file_content.indexOf('\n');
         let header_end = LF > CR ? LF : CR;
-        let $file_header = file_content.substring(0, header_end);
+        let $file_header = file_content.substring(0, header_end).trim();
         let errors = $$validate_header($file_header);
         if (errors) {
             $$error_log('file', errors);
@@ -243,6 +243,7 @@ function start_upload(e) {
             let rows = file_content.split(/\r?\n|\r|\n/g);
             for (i=1; i < rows.length; i++) {  
                 let columns = rows[i].split(',');
+                if (!$$verify_csv_header(columns, header_)) break
                 let $principal = parseFloat(columns[header_.indexOf('principal')]);
                 if ($principal != 0) {
                     let $id = String(columns[header_.indexOf('ID')]).trim();
