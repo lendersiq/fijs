@@ -74,6 +74,13 @@ function $$error_log(label, _text) {
     document.getElementById('fijs-console').style.display = "block";
 }
 
+function $$verify_csv_header(columns, header_) {
+    if (columns.length != header_.length) {
+        $$error_log('file header', 'columns: ' + columns.length + ' <mismatch> header: ' +  header_.length)
+    }
+   return columns.length == header_.length
+}
+
 function $$validate_header(header) {
     let header_errors = ''
     let columns = header.split(',')
