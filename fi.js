@@ -78,6 +78,7 @@ function $$validate_header(header) {
     let header_errors = '';
     let columns = header.split(',');
     let config_headers_ = Object.keys(JSON.parse(document.getElementById('file_field_dict_').innerHTML));
+    console.log(config_headers_)
     for (i=0; i < config_headers_.length; i++) {  
         if (!columns.includes(config_headers_[i])) {
             header_errors += 'missing header column: ' + config_headers_[i] + '\n';
