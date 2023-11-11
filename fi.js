@@ -75,17 +75,15 @@ function $$error_log(label, _text) {
 }
 
 function $$validate_header(header) {
-    let header_errors = '';
-    let columns = header.split(',');
-    let config_headers_ = Object.keys(JSON.parse(document.getElementById('file_field_dict_').innerHTML));
-    console.log(config_headers_)
-    console.log(columns)
+    let header_errors = ''
+    let columns = header.split(',')
+    let config_headers_ = Object.keys(JSON.parse(document.getElementById('file_field_dict_').innerHTML))
     for (i=0; i < config_headers_.length; i++) {  
         if (!columns.includes(config_headers_[i])) {
-            header_errors += 'missing header column: ' + config_headers_[i] + '\n';
+            header_errors += 'missing header column: ' + config_headers_[i] + '\n'
         }
     }
-    return header_errors;
+    return header_errors
 }
 
 function $$term_in_months(columns, header_) {
