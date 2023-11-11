@@ -41,6 +41,10 @@ function $$encryptString(str) {
     return encrypted_string;
 }
 
+function $$calculate(str) {
+  return Function(`'use strict'; return (${str})`)()
+}
+
 function $$screen_log(label, value) {
     let id_filter = document.getElementById('id-filter').value.trim()
     if (id_filter != null && id_filter != "") {
