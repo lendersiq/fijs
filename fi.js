@@ -56,9 +56,9 @@ function $$process_objs(arg) {
     return container_[key]
 }
 
-function $$process_pipe(arg) {
+function $$process_pipe(arg, columns, header_) {
     key = arg.replace(/[\|\|']+/g,'')
-    return valueDict[key]
+    return parseFloat(columns[header_.indexOf(key)])
 }
 
 function $$screen_log(label, value) {
