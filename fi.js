@@ -45,6 +45,22 @@ function $$calculate(str) {
   return Function(`'use strict'; return (${str})`)()
 }
 
+function $$process_dict(arg) {
+    _args = arg.replace(/[\[\]']+/g,'').split(':')
+    el = container_[_args[0]]
+    return el[_args[1]][1]
+}
+
+function $$process_objs(arg) {
+    key = arg.replace(/[\{\}']+/g,'')
+    return container_[key]
+}
+
+function $$process_pipe(arg) {
+    key = arg.replace(/[\|\|']+/g,'')
+    return valueDict[key]
+}
+
 function $$screen_log(label, value) {
     let id_filter = document.getElementById('id-filter').value.trim()
     if (id_filter != null && id_filter != "") {
