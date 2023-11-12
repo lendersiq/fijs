@@ -53,7 +53,7 @@ function $$process_dict(arg) {
 
 function $$process_objs(arg) {
     key = arg.replace(/[\{\}']+/g,'')
-    return container_[key]
+    return G_container_[key]
 }
 
 function $$process_pipe(arg, columns, header_) {
