@@ -48,7 +48,7 @@ function $$calculate(str) {
 function $$process_dict(arg) {
     _args = arg.replace(/[\[\]']+/g,'').split(':')
     el = container_[_args[0]]
-    return el[_args[1]][1]
+    return el[_args[1]]
 }
 
 function $$process_objs(arg) {
