@@ -1,10 +1,4 @@
-//globals 
-var G_product_count = <?= json_encode($dda_type_counts) ?>;
 var G_portfolio_table = [];
-var G_product_table = <?= json_encode($product_table) ?>;
-var G_branch_count = <?= json_encode($branch_loan_counts) ?>;
-var G_branch_table = <?= json_encode($branch_table) ?>;
-
 
 function $$calc_profit(columns, header_)  {
     process_pipe = container_['formula'].replace(/\|\w+\|/ig, key => $$process_pipe(key, columns, header_))
