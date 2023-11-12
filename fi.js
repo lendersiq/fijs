@@ -61,8 +61,13 @@ function $$process_objs(arg) {
 }
 
 function $$process_pipe(arg, columns, header_) {
-    key = arg.replace(/[\|\|']+/g,'')
-    return parseFloat(columns[header_.indexOf(key)])
+    const key = arg.replace(/[\|\|']+/g,'')
+    const result = columns[header_.indexOf(key)]
+    if (key.includes('*')) {
+        const pointer = JSON.parse(document.getElementById(key.replace('@', '') + '_pointer_').innerHTML)
+        return parseInt(pointer[1])
+    }
+    return parseFloat(result)
 }
 
 function $$screen_log(label, value) {
