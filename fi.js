@@ -66,8 +66,9 @@ function $$process_pipe(arg, columns, header_) {
     if (key.includes('*')) {
         const pointer = JSON.parse(document.getElementById(key.replace('@', '') + '_pointer_').innerHTML)
         return parseInt(pointer[1])
+    } else {
+      return parseFloat(result)
     }
-    return parseFloat(result)
 }
 
 function $$screen_log(label, value) {
