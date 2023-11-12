@@ -61,13 +61,14 @@ function $$process_objs(arg) {
 }
 
 function $$process_pipe(arg, columns, header_) {
-    const key = arg.replace(/[\|\|']+/g,'')
-    const result = columns[header_.indexOf(key)]
+    let key = arg.replace(/[\|\|']+/g,'')
     if (key.includes('@')) {
-        const pointer = JSON.parse(document.getElementById(key.replace('@', '') + '_pointer_').innerHTML)
-        return parseInt(pointer[1])
+        key = key.replace('@', '')
+        const value = columns[header_.indexOf(key)]
+        const pointer = JSON.parse(document.getElementById(key + '_pointer_').innerHTML)
+        return parseInt(pointer[value][1])
     } else {
-      return parseFloat(result)
+        return parseFloat(columns[header_.indexOf(key)])
     }
 }
 
@@ -125,7 +126,7 @@ function $$remaining_life_in_years(columns, header_) {
 }
 
 function $$current_life_in_years(columns, header_) {
-    let $origination_date = new Date(columns[header_.indexOf('origination_date')]);  
+    let $origination_date = new Date(G_columns[G_header_.indexOf('origination_date')]);  
     let today = new Date();
     let time_difference = today.getTime() - $origination_date.getTime();
     return parseFloat(time_difference / (1000 * 60 * 60 * 24 * 365));  
