@@ -1,7 +1,7 @@
 var G_portfolio_table = [];
 
 function $$calc_profit(columns, header_)  {
-    process_pipe = container_['formula'].replace(/\|\w+\|/ig, key => $$process_pipe(key, columns, header_))
+    process_pipe = G_container_['formula'].replace(/\|\w+\|/ig, key => $$process_pipe(key, columns, header_))
     process_objs = process_pipe.replace(/\{\w+\}/ig, key => $$process_objs(key)) 
     process_dicts = process_objs.replace(/\[[\w':]+\]/ig, key => $$process_dict(key))
     return $$calculate(process_dicts)
