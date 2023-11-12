@@ -53,9 +53,8 @@ function $$process_dict(arg) {
 
 function $$process_objs(arg) {
     key = arg.replace(/[\{\}']+/g,'')
-    if ( key.slice(0, 2) == '$$' ) {
-        const fn = new Function(`return ${key}()`);
-        return fn()
+    if (typeof window['$$' + key] === 'function') {
+        return window['$$' + key]()
     } else {
         return G_container_[key]
     }
