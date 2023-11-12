@@ -53,7 +53,12 @@ function $$process_dict(arg) {
 
 function $$process_objs(arg) {
     key = arg.replace(/[\{\}']+/g,'')
-    return G_container_[key]
+    if ( key.slice(0, 2) == '$$' ) {
+        const fn = new Function(`return ${key}()`);
+        return fn()
+    } else {
+        return G_container_[key]
+    }
 }
 
 function $$process_pipe(arg, columns, header_) {
