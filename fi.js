@@ -136,7 +136,7 @@ function $$current_life_in_years(columns, header_) {
     return life  
 }
 
-function $$display_table(name, id, header_array, table_array, counter_opt=false) {
+function $$display_table(name, id, header_array, table_array, ranking_opt=false) { //ranking_opt when true places the rank in column 1 
     let sum = [];
     let id_column = -1;
     let table = document.createElement('table'); 
@@ -144,7 +144,7 @@ function $$display_table(name, id, header_array, table_array, counter_opt=false)
     table.setAttribute("id", name.replace(/ /g,"_"));
     heading = document.createElement('thead'); 
     tr = document.createElement('tr'); 
-    if (counter_opt) {
+    if (ranking_opt) {
         th = document.createElement('th'); 
         th.innerHTML = '#';
         tr.appendChild(th);
@@ -163,7 +163,7 @@ function $$display_table(name, id, header_array, table_array, counter_opt=false)
     table_array.forEach(function(row, r_index) {
         if (row[row.length-1] != 0) { //hack
             tr = document.createElement('tr');
-            if (counter_opt) {
+            if (ranking_opt) {
                 td = document.createElement('td'); 
                 td.innerHTML = count;
                 tr.appendChild(td);
@@ -194,7 +194,7 @@ function $$display_table(name, id, header_array, table_array, counter_opt=false)
         }
     });
     tr = document.createElement('tr');
-    if (counter_opt) {
+    if (ranking_opt) {
         th = document.createElement('th');
         th.innerHTML = '';
         tr.appendChild(th);
@@ -217,13 +217,13 @@ function $$display_table(name, id, header_array, table_array, counter_opt=false)
     document.getElementById(id).appendChild(table);
 }
 
-function $$sort_display_table(name, id, header_array, table_array, sort_column, sort_opt, counter_opt=false) { //sort options: ascending, descending, or false
+function $$sort_display_table(name, id, header_array, table_array, sort_column, sort_opt, ranking_opt=false) { //sort options: ascending, descending, or false & ranking_opt when true places the rank in column 1 
     if (sort_opt.substring(0, 3).toLowerCase() == 'asc') {
         table_array.sort((a, b) => parseFloat(a[sort_column]) - parseFloat(b[sort_column]));
     } else if (sort_opt.substring(0, 3).toLowerCase() == 'des') { 
         table_array.sort((a, b) => parseFloat(b[sort_column]) - parseFloat(a[sort_column]));
     }
-    $$display_table(name, id, header_array, table_array, counter_opt);
+    $$display_table(name, id, header_array, table_array, ranking_opt);
 }
 
 function $$catalog_data(columns, header_, id) {
