@@ -128,10 +128,12 @@ function $$remaining_life_in_years(columns, header_) {
 }
 
 function $$current_life_in_years(columns, header_) {
-    let $origination_date = new Date(G_columns[G_header_.indexOf('origination_date')]);  
-    let today = new Date();
-    let time_difference = today.getTime() - $origination_date.getTime();
-    return parseFloat(time_difference / (1000 * 60 * 60 * 24 * 365));  
+    const $origination_date = new Date(G_columns[G_header_.indexOf('origination_date')])  
+    const today = new Date()
+    const time_difference = today.getTime() - $origination_date.getTime()
+    const life = parseFloat(time_difference / (1000 * 60 * 60 * 24 * 365))
+    $$screen_log("life in years", $$twoDigit.format(life))
+    return life  
 }
 
 function $$display_table(name, id, header_array, table_array, counter_opt=false) {
