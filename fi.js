@@ -224,6 +224,7 @@ function $$sort_display_table(name, id, header_array, table_array, sort_column, 
 
 function $$catalog_data(columns, header_, id) {
     header_.forEach(function(column, c_index) {
-        document.getElementById(id).innerHTML += column + " : " + columns[header_.indexOf(column)] + '\n';
-    });
+        document.getElementById(id).textContent += column + " : " + columns[header_.indexOf(column)] + '\n'
+    })
+    document.getElementById('fijs-console').style.display = "block"
 }
