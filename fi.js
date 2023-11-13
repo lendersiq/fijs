@@ -75,8 +75,10 @@ function $$process_pipe(arg, columns, header_) {
 function $$screen_log(label, value) {
     let id_filter = document.getElementById('id-filter').value.trim()
     if (id_filter != null && id_filter != "") {
-        document.getElementById('screen-console').textContent += label + " : " + value + "\n"
-        document.getElementById('fijs-console').style.display = "block"
+        if (!document.getElementById('screen-console').textContent.includes(label)) {
+            document.getElementById('screen-console').textContent += label + " : " + value + "\n"
+            document.getElementById('fijs-console').style.display = "block"
+        }
     }
 }
 
