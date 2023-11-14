@@ -45,7 +45,7 @@ function $$calculate(str) {
   return Function(`'use strict'; return (${str})`)()
 }
 
-function $$process_dict(arg) {
+function $$process_dicts(arg) {
     tag_strip = arg.replace(/<\/?[^>]+(>|$)/g, '')
     _args = tag_strip.replace(/[\[\]']+/g,'').split(':')
     el = G_container_[_args[0]]
