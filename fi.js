@@ -46,7 +46,8 @@ function $$calculate(str) {
 }
 
 function $$process_dict(arg) {
-    _args = arg.replace(/[\[\]']+/g,'').split(':')
+    tag_strip = arg.replace(/<\/?[^>]+(>|$)/g, '')
+    _args = tag_strip.replace(/[\[\]']+/g,'').split(':')
     el = G_container_[_args[0]]
     return el[_args[1]]
 }
@@ -60,7 +61,7 @@ function $$process_objs(arg) {
     }
 }
 
-function $$process_pipe(arg, columns, header_) {
+function $$process_pipes(arg, columns, header_) {
     let key = arg.replace(/[\|\|']+/g,'')
     if (key.includes('@')) {
         key = key.replace('@', '')
