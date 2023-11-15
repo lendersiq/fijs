@@ -133,7 +133,6 @@ function $$current_life_in_years(columns, header_) {
     const today = new Date()
     const time_difference = today.getTime() - $origination_date.getTime()
     const life = parseFloat(time_difference / (1000 * 60 * 60 * 24 * 365))
-    $$screen_log("life in years", $$twoDigit.format(life))
     return life.toFixed(2);  
 }
 
