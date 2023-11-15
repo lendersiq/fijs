@@ -75,7 +75,7 @@ function $$process_pipes(arg, columns, header_) {
         const pointer = JSON.parse(document.getElementById(key + '_pointer_').innerHTML)
         return parseInt(pointer[value][1])
     } else {
-        return columns[header_.indexOf(key)] == 'undefined' ? ' ' : parseFloat(columns[header_.indexOf(key)])
+        return isNaN(parseFloat(columns[header_.indexOf(key)])) ? 0 : parseFloat(columns[header_.indexOf(key)])
     }
 }
 
