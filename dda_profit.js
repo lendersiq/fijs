@@ -1,5 +1,5 @@
 var G_portfolio_table = []
-var G_columns = []
+let G_columns = []
 
 function start_upload(e) {
     e.preventDefault();
@@ -11,7 +11,7 @@ function start_upload(e) {
     reader.onload = function(e) {
         let file_content = e.target.result;
         let id_filter = document.getElementById('id-filter').value.trim();
-        let ID_match = false;
+        let id_match = ( id_filter !== '' || id_filter === null ) ? true : false
         let CR = file_content.indexOf('\r');
         let LF = file_content.indexOf('\n');
         let header_end = LF > CR ? LF : CR;
@@ -23,25 +23,20 @@ function start_upload(e) {
             let header_ = <?= json_encode(array_values($container_config['file_field_dict'])) ?>;
             let rows = file_content.split(/\r?\n|\r|\n/g);
             for (i=1; i < rows.length; i++) {  
-                let columns = rows[i].split(',');
-                if (!$$verify_csv_header(columns, header_)) break
-                let $balance = parseFloat(columns[header_.indexOf('balance')]);
+                G_columns = rows[i].split(',')
+                if (!$$verify_csv_header(G_columns, header_)) break
+                let $balance = parseFloat(G_columns[header_.indexOf('balance')]);
                 if ($balance != 0) {
-                    let $id = String(columns[header_.indexOf('ID')]).trim();
+                    let $id = String(G_columns[header_.indexOf('ID')]).trim();
                     if ($id == id_filter || id_filter == null || id_filter == "") {
-                        if ($id == id_filter) {
-                            ID_match = true;    
-                        } else {
-                            ID_match = false;    
-                        }
-                        let $type = parseInt(columns[header_.indexOf('type')])
+                        let $type = parseInt(G_columns[header_.indexOf('type')])
                         if (typeof G_product_count[$type] == 'undefined' || G_product_count[$type] == null) {
                             $$error_log('config', 'type ' + $type + ' missing')
                         } else {
                             G_product_count[$type] += 1
                         }
-                        let $branch = columns[header_.indexOf('branch')].trim();
-                        profit = $$process_formula(ID_match)
+                        let $branch = G_columns[header_.indexOf('branch')].trim();
+                        profit = $$process_formula(id_match)
                         temp_index = G_portfolio_table.findIndex(function(v,i) {
                             return v[0] == $id});
                         if (temp_index === -1)  {
@@ -83,4 +78,4 @@ function start_upload(e) {
     reader.readAsText(file);
     consoleModal_.hide()
 }
-document.getElementById('file-input').addEventListener('change', start_upload, false);
+document.getElementById('file-input').addEventListener('change', start_upload, false)
