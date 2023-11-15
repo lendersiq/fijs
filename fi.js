@@ -48,7 +48,7 @@ function $$calculate(str) {
 function $$process_dicts(arg) {
     tag_strip = arg.replace(/<\/?[^>]+(>|$)/g, '')
     _args = tag_strip.replace(/[\[\]']+/g,'').split(':')
-    if ( _args[1] == ' ' ) {
+    if ( _args[1] == 'undefined' ) {
         return 0
     } else {
         el = G_container_[_args[0]]
