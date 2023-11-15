@@ -48,7 +48,6 @@ function $$calculate(str) {
 function $$process_dicts(arg) {
     tag_strip = arg.replace(/<\/?[^>]+(>|$)/g, '')
     _args = tag_strip.replace(/[\[\]']+/g,'').split(':')
-    console.log('dicts', arg)
     el = G_container_[_args[0]]
     return el[_args[1]]
 }
@@ -63,7 +62,6 @@ function $$process_objs(arg) {
 }
 
 function $$process_pipes(arg, columns, header_) {
-    console.log('pipes', arg)
     let key = arg.replace(/[\|\|']+/g,'')
     if (key.includes('@')) {
         key = key.replace('@', '')
