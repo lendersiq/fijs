@@ -48,8 +48,12 @@ function $$calculate(str) {
 function $$process_dicts(arg) {
     tag_strip = arg.replace(/<\/?[^>]+(>|$)/g, '')
     _args = tag_strip.replace(/[\[\]']+/g,'').split(':')
-    el = G_container_[_args[0]]
-    return el[_args[1]]
+    if ( _args[1] == ' ' ) {
+        return 0
+    else {
+        el = G_container_[_args[0]]
+        return el[_args[1]]
+    }
 }
 
 function $$process_objs(arg) {
@@ -69,7 +73,7 @@ function $$process_pipes(arg, columns, header_) {
         const pointer = JSON.parse(document.getElementById(key + '_pointer_').innerHTML)
         return parseInt(pointer[value][1])
     } else {
-        return parseFloat(columns[header_.indexOf(key)])
+        return columns[header_.indexOf(key)] == 'undefined' ? ' ' : parseFloat(columns[header_.indexOf(key)])
     }
 }
 
