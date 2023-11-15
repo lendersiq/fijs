@@ -49,7 +49,7 @@ function $$process_dicts(arg) {
     tag_strip = arg.replace(/<\/?[^>]+(>|$)/g, '')
     _args = tag_strip.replace(/[\[\]']+/g,'').split(':')
     console.log('dicts', arg)
-    if ( _args[1] == 'undefined' ) {
+    if ( _args[1] == 'undefined' || isNaN(_args[1]) ) {
         return 0
     } else {
         el = G_container_[_args[0]]
