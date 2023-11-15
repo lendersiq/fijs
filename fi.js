@@ -42,19 +42,15 @@ function $$encryptString(str) {
 }
 
 function $$calculate(str) {
-  return Function(`'use strict'; return (${str})`)()
+    return Function(`'use strict'; return (${str})`)()
 }
 
 function $$process_dicts(arg) {
     tag_strip = arg.replace(/<\/?[^>]+(>|$)/g, '')
     _args = tag_strip.replace(/[\[\]']+/g,'').split(':')
     console.log('dicts', arg)
-    if ( _args[1] == 'undefined' || isNaN(_args[1]) ) {
-        return 0
-    } else {
-        el = G_container_[_args[0]]
-        return el[_args[1]]
-    }
+    el = G_container_[_args[0]]
+    return el[_args[1]]
 }
 
 function $$process_objs(arg) {
