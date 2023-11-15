@@ -1,4 +1,5 @@
-var G_portfolio_table = [];
+var G_portfolio_table = []
+var G_columns = []
 
 function start_upload(e) {
     e.preventDefault();
