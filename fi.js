@@ -50,7 +50,7 @@ function $$process_dicts(arg) {
     _args = tag_strip.replace(/[\[\]']+/g,'').split(':')
     if ( _args[1] == ' ' ) {
         return 0
-    else {
+    } else {
         el = G_container_[_args[0]]
         return el[_args[1]]
     }
