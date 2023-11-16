@@ -79,13 +79,14 @@ function $$process_formula(ID_match) {
     process_dicts = process_objs.replace(/\[[\w':]+\]/ig, key => $$process_dicts(key))
     const result = $$calculate(process_dicts)
     if (ID_match) {
+        const id_markup = "<span class='id-color'>#" + columns[header_.indexOf('ID')] + "</span><hr>" 
         const formula_markup = "<span class='formula-base'>" + G_container_['formula'] + "</span>"
         const pre_markup = formula_markup.replace(/\|[\w'@]+\|/ig, key => "<span class='pipes'>" + key + "</span>").replace(/\{\w+\}/ig, key => "<span class='objects'>" + key + "</span>").replace(/\[.*?\:/ig, key => "<span class='dicts'>" + key + "</span>").replace(']', "<span class='dicts'>]</span>")
         const pipes_markup = formula_markup.replace(/\|[\w'@]+\|/ig, key => "<span class='pipes'>" + $$process_pipes(key, G_columns, G_header_) + "</span>")
         const objs_markup = pipes_markup.replace(/\{\w+\}/ig, key => "<span class='objects'>" + $$process_objs(key) + "</span>")
         const post_markup = objs_markup.replace(/\[.*?\]/ig, key => "<span class='dicts'>" + $$process_dicts(key) + "</span>")
         const elements_markup = G_container_['formula'].match(/\[.*?\]/ig).join(' ').replace(/\|[\w'@]+\|/ig, key => "<span class='pipes'>" + $$process_pipes(key, G_columns, G_header_) + "</span>")
-        document.getElementById('markup-console').innerHTML += pre_markup + "<hr>" + elements_markup + "<hr>" + post_markup + "<hr>" + $$USDollar.format(result) + "<hr>"
+        document.getElementById('markup-console').innerHTML += id_markeup + pre_markup + "<hr>" + elements_markup + "<hr>" + post_markup + "<hr>" + $$USDollar.format(result) + "<hr>"
         document.getElementById('fijs-console').style.display = "block"
     }
     return parseFloat(result)   
