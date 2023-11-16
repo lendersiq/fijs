@@ -79,7 +79,7 @@ function $$process_formula(ID_match) {
     process_dicts = process_objs.replace(/\[[\w':]+\]/ig, key => $$process_dicts(key))
     const result = $$calculate(process_dicts)
     if (ID_match) {
-        const id_markup = "<span class='id-color'>#" + columns[header_.indexOf('ID')] + "</span><hr>" 
+        const id_markup = "<span class='id-color'>#" + G_columns[G_header_.indexOf('ID')] + "</span><hr>" 
         const formula_markup = "<span class='formula-base'>" + G_container_['formula'] + "</span>"
         const pre_markup = formula_markup.replace(/\|[\w'@]+\|/ig, key => "<span class='pipes'>" + key + "</span>").replace(/\{\w+\}/ig, key => "<span class='objects'>" + key + "</span>").replace(/\[.*?\:/ig, key => "<span class='dicts'>" + key + "</span>").replace(']', "<span class='dicts'>]</span>")
         const pipes_markup = formula_markup.replace(/\|[\w'@]+\|/ig, key => "<span class='pipes'>" + $$process_pipes(key, G_columns, G_header_) + "</span>")
