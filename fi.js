@@ -86,7 +86,7 @@ function $$process_formula(ID_match) {
         const objs_markup = pipes_markup.replace(/\{\w+\}/ig, key => "<span class='objects'>" + $$process_objs(key) + "</span>")
         const post_markup = objs_markup.replace(/\[.*?\]/ig, key => "<span class='dicts'>" + $$process_dicts(key) + "</span>")
         const elements_markup = G_container_['formula'].match(/\[.*?\]/ig).join(' ').replace(/\|[\w'@]+\|/ig, key => "<span class='pipes'>" + $$process_pipes(key, G_columns, G_header_) + "</span>")
-        document.getElementById('markup-console').innerHTML += id_markeup + pre_markup + "<hr>" + elements_markup + "<hr>" + post_markup + "<hr>" + $$USDollar.format(result) + "<hr>"
+        document.getElementById('markup-console').innerHTML += id_markup + pre_markup + "<hr>" + elements_markup + "<hr>" + post_markup + "<hr>" + $$USDollar.format(result) + "<hr>"
         document.getElementById('fijs-console').style.display = "block"
     }
     return parseFloat(result)   
