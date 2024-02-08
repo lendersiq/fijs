@@ -53,7 +53,14 @@ function $$process_dicts(arg) {
 }
 
 function $$process_objs(arg) {
-    key = arg.replace(/[\{\}']+/g,'')
+    var key = arg.replace(/[\{\}']+/g,'');
+    const parens = [];  
+    //check for object parameter
+    parens = key.match(/\(([^)]+)\)/);
+    if (parens.length > 0) {
+      key.replace(parens[0], '');
+      return window[key](parens[1]
+    }
     if (typeof window['$$' + key] === 'function') {
         return window['$$' + key]()
     } else {
